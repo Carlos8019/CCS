@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:3.1.0"
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '3.1.0'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'groovy'
+    id 'java'
+}
+
+group = 'example'
+version = '1.0'
+sourceCompatibility = '17'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.grails.org/grails/core' }
+    maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:3.0.17'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(org.gradle.api.tasks.compile.GroovyCompile) {
+    groovyOptions.javaAnnotationProcessing = true
+    groovyOptions.forkOptions.jvmArgs = ['--enable-preview']
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
+
+
